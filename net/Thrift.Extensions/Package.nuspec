@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Thrift.Extensions</id>
+    <version>$Version$</version>
+    <title>Thrift.Extensions</title>
+    <authors>mkoertgen</authors>
+    <owners>mkoertgen</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <copyright>Awesome Inc.</copyright>
+    <releaseNotes>Revision: $Revision$</releaseNotes>
+    <projectUrl>https://github.com/awesome-inc/MetaThrift</projectUrl>
+    <description>Thrift extensions including a smple Http Listener.</description>
+    <summary>Thrift extensions including a smple Http Listener.</summary>
+    <dependencies>
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="Thrift" version="0.9.1.3" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="System.Web" targetFramework=".NETFramework4.5" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="bin\Release\Thrift.Extensions.dll" target="lib"/>
+    <file src="bin\Release\Thrift.Extensions.pdb" target="lib"/>
+  </files>
+</package>

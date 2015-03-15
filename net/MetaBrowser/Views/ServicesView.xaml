@@ -1,0 +1,82 @@
+﻿<Window x:Class="MetaBrowser.Views.ServicesView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:cal="http://www.caliburnproject.org"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:MetaBrowser.ViewModels" mc:Ignorable="d"
+        Width="640"
+        Height="480" d:DataContext="{d:DesignInstance viewModels:ServicesViewModel}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Uri:"/>
+            <TextBox Grid.Column="1" x:Name="Uri" />
+            <Button Grid.Column="2" x:Name="RefreshServices" Content="Refresh" />
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="3" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="3" />
+                <ColumnDefinition Width="4*" />
+            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Services:"/>
+                <ListBox Grid.Row="1"
+                    ItemsSource="{Binding Services}" 
+                    SelectedItem="{Binding SelectedService}"
+                    DisplayMemberPath="Name">
+                    <ListBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Export to..." DisplayMemberPath="Info.Format"
+                                ItemsSource="{Binding ServiceExporters}"
+                                cal:Message.Attach="Export($orignalsourcecontext)"/>
+                        </ContextMenu>
+                    </ListBox.ContextMenu>
+                </ListBox>
+            </Grid>
+            
+            <GridSplitter Grid.Column="1" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+            
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Operations:"/>
+                <ListBox Grid.Row="1"
+                    ItemsSource="{Binding SelectedService.Operations}" 
+                    SelectedItem="{Binding SelectedOperation}"
+                    DisplayMemberPath="Name" />
+            </Grid>
+
+            <GridSplitter Grid.Column="3" Width="3" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+
+            <Grid Grid.Column="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Operation:"/>
+                <TextBlock Grid.Row="1" Text="{Binding SelectedOperation}" TextWrapping="Wrap" />
+                <StackPanel Grid.Row="2">
+                    <Button x:Name="Execute" Content="Execute" HorizontalAlignment="Right" />
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
