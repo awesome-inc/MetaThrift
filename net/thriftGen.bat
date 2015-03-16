@@ -1,7 +1,7 @@
 @echo off
 setlocal
 set thrift=.\packages\Thrift.0.9.1.3\tools\thrift-0.9.1.exe
-set input=.\MetaThrift.thrift
+set input=..\MetaThrift.thrift
 
 set output_csharp=.\MetaThrift\gen-csharp
 echo generating MetaThrift (C#)...
