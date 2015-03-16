@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="description" content="MetaBrowser"/>
+    <meta name="author" content="mkoertgen"/>
+    <title>MetaBrowser</title>
+    
+    <script src="Scripts/jquery-2.0.0.min.js"></script>
+    <script src="Scripts/thrift.min.js"></script>
+    <script src="Scripts/MetaThrift_types.min.js"></script>
+    <script src="Scripts/MetaService.min.js"></script>
+    <script src="Scripts/MetaBroker.min.js"></script>
+    <script src="Scripts/MetaThrift.min.js"></script>
+    <script src="Scripts/knockout-3.2.0.js"></script>
+    <script src="Scripts/ViewModels.js"></script>
+    <link href="Content/bootstrap.min.css" rel="stylesheet"/>
+    <script src="Scripts/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="app.css" type="text/css" />
+    <!-- Need to defer script execution, 
+        cf.: http://stackoverflow.com/questions/9128015/knockout-syntax-error#9128306 -->
+    <script src="app.js" defer="defer"></script>
+    <!--<script data-main="app" src="Scripts/require.min.js"></script>-->
+
+</head>
+    <body>
+        <div class="container">
+            <div class="row"><h3 class="span12">MetaBrowser (MetaThrift: 1.1.0.0)</h3></div>
+            <div class="row">
+                <label class="span1">Broker:</label>
+                <div class="span9"><input class="span9" data-bind="text: brokerUri()" placeholder="Enter Uri..." value="http://localhost:9091/services/metabroker/"/></div>
+                <div class="span2"><button data-bind="click: refreshServices, enable: validUri">Refresh</button></div>
+            </div>
+            <div class="row">
+                <label class="span2">Services:</label>
+                <label class="span2">Operations:</label>
+                <label class="span8">Operation:</label>
+            </div>
+            <div class="row">
+                <div class="span2">
+                    <ul class="inline span1" data-bind="foreach: services">
+                        <li><a href="#" data-bind="{ text: name, click: $root.selectedService }"></a></li>
+                    </ul>
+                </div>
+                <div class="span2">
+                    <ul class="inline span1" data-bind="foreach: selectedService().operations">
+                        <li><a href="#" data-bind="{ text: name, click: $root.selectedOperation }"></a></li>
+                    </ul>
+                </div>
+                <div class="span6"><p data-bind="text: selectedOperation() ? selectedOperation().prettyName: 'Select an operation'"></p></div>
+                <div class="span2"><button data-bind="click: showExecuteModal, enable: operationSelected">Execute</button></div>
+            </div>
+            
+            <div id="executeModal" data-bind="with: selectedOperation"
+                 class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="executeModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="executeModalLabel">Execute - <span data-bind="text: name"></span></h3>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="span3">Input:</div>
+                        <div class="span3">Output:</div>
+                    </div>
+                    <div class="row">
+                        <div class="span3" data-bind="text: operation.inputTypeName"></div>
+                        <div class="span3" data-bind="text: operation.outputTypeName"></div>
+                    </div>
+                    <div class="row">
+                        <div class="span3"><textarea data-bind="value: $parent.inputData"></textarea></div>
+                        <div class="span3"><textarea data-bind="value: $parent.outputData" readonly="readonly"></textarea></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <button data-bind="click: $parent.executeOperation.bind($parent)" class="btn btn-primary">Execute</button>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

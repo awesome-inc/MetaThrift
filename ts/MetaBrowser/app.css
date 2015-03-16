@@ -1,0 +1,12 @@
+﻿body
+{
+    font-family: 'Segoe UI', sans-serif
+}
+
+span {
+    font-style: italic
+}
+
+#executeModal .modal-body {
+    max-height: 800px;
+}
