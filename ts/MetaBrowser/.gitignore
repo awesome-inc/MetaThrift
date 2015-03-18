@@ -1,7 +1,2 @@
 # ignore typescript generated files
-*.js
-*.js.map
-
-Content/*
-
-!gen-js/*.js
+*.map

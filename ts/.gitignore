@@ -30,4 +30,4 @@ $tf*/
 
 packages/*
 !packages/repositories.config
-!.nuget/NuGet.exe
+

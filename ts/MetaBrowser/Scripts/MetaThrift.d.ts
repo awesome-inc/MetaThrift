@@ -1,18 +1,4 @@
-﻿declare module Thrift {
-   class Transport {
-       url: string;
-       constructor(url: string);
-       //isOpen(): bool;
-       //open();
-       //close();
-   }
-   class Protocol {
-       constructor(transport: Transport);
-       getTransport(): Transport;
-   }
-}
-
-declare class MetaObject {
+﻿declare class MetaObject {
     typeName: string;
     data: string;
     constructor(args?: MetaObject);
