@@ -1,4 +1,18 @@
-﻿declare class MetaObject {
+﻿declare module ThriftExt {
+    class Transport extends Thrift.Transport {
+        url: string;
+        constructor(url: string);
+        //isOpen(): bool;
+        //open();
+        //close();
+    }
+    class Protocol {
+        constructor(transport: Transport);
+        getTransport(): Transport;
+    }
+}
+
+declare class MetaObject {
     typeName: string;
     data: string;
     constructor(args?: MetaObject);
@@ -15,8 +29,8 @@ declare class MetaOperation {
 
 declare class MetaServiceClient {
     // thrift default implementation for any client
-    input: Thrift.Protocol;
-    output: Thrift.Protocol;
+    input: ThriftExt.Protocol;
+    output: ThriftExt.Protocol;
     constructor(input: Thrift.Protocol, output?:Thrift.Protocol);
     // specific for MetaThrift
     getName(): string;

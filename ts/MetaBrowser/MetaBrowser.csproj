@@ -25,10 +25,6 @@
     <TypeScriptToolsVersion>1.4</TypeScriptToolsVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-responsive.css" />
-    <Content Include="Content\bootstrap-responsive.min.css" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\images\glyphicons-halflings-white.png" />
     <Content Include="Content\images\glyphicons-halflings.png" />
     <Content Include="default.htm" />
@@ -47,10 +43,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <None Include="Scripts\jquery-2.1.3.intellisense.js" />
-    <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
-    <Content Include="Scripts\knockout-3.3.0.debug.js" />
     <Content Include="Scripts\knockout-3.3.0.js" />
     <Content Include="Scripts\MetaBroker.js" />
     <Content Include="Scripts\MetaService.js" />
@@ -121,11 +114,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
   </ItemGroup>
   <ItemGroup>
