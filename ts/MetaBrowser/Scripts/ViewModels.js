@@ -1,6 +1,4 @@
 /// <reference path="typings/knockout/knockout.d.ts" />
-/// <reference path="typings/jquery/jquery.d.ts" />
-/// <reference path="typings/bootstrap/bootstrap.d.ts" />
 /// <reference path="MetaThrift.d.ts" />
 /// <reference path="MetaThrift.ts" />
 //declare var require;
@@ -71,14 +69,11 @@ var ServicesViewModel = (function () {
             var infos = _this.broker.getInfos();
             var services = ServicesViewModel.filterServices(infos, operations);
             _this.services(services);
-            //this.selectedService(this.services[0]);
-            //this.selectedOperation(services[0].operations[0]);
         }, "Could not refresh services");
     };
     ServicesViewModel.prototype.showExecuteModal = function () {
         this.inputData("");
         this.outputData("");
-        $("#executeModal").modal("show");
     };
     ServicesViewModel.prototype.executeOperation = function () {
         var _this = this;
@@ -94,7 +89,6 @@ var ServicesViewModel = (function () {
     ServicesViewModel.filterServices = function (infos, operations) {
         var services = infos.map(function (info) {
             var ops = operations.filter(function (o) { return o.name.indexOf(info.name + "/") == 0; });
-            //.map(MetaThrift.unwrap);
             return new ServiceViewModel(info, ops);
         });
         return services;

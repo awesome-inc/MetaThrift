@@ -1,6 +1,4 @@
 /// <reference path="typings/knockout/knockout.d.ts" />
-/// <reference path="typings/jquery/jquery.d.ts" />
-/// <reference path="typings/bootstrap/bootstrap.d.ts" />
 /// <reference path="MetaThrift.d.ts" />
 /// <reference path="MetaThrift.ts" />
 
@@ -93,8 +91,6 @@ class ServicesViewModel {
 			var services = ServicesViewModel.filterServices(infos, operations);
 
 			this.services(services);
-			//this.selectedService(this.services[0]);
-			//this.selectedOperation(services[0].operations[0]);
 
 		}, "Could not refresh services");
 	}
@@ -102,7 +98,6 @@ class ServicesViewModel {
 	showExecuteModal() {
 		this.inputData("");
 		this.outputData("");
-		$("#executeModal").modal("show");
 	}
 
 	executeOperation() {
@@ -120,7 +115,6 @@ class ServicesViewModel {
 		var services = infos.map(info => {
 			var ops = operations.
 				filter(o => o.name.indexOf(info.name + "/") == 0);
-			//.map(MetaThrift.unwrap);
 			return new ServiceViewModel(info, ops);
 		});
 		return services;
