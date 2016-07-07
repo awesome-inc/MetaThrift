@@ -40,7 +40,7 @@ namespace MetaBrowser.ViewModels
             if (messageBox == null) throw new ArgumentNullException("messageBox");
 
             // ReSharper disable DoNotCallOverridableMethodsInConstructor
-            DisplayName = "SSE MetaBrowser";
+            DisplayName = "MetaBrowser";
             // ReSharper restore DoNotCallOverridableMethodsInConstructor
 
             _windowManager = windowManager;
