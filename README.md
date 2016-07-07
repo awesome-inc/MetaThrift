@@ -17,6 +17,14 @@ The same example in **.NET**:
 
 The implementation is based on [Apache Thrift](https://thrift.apache.org/). Here is the idl [MetaThrift.thrift](MetaThrift.thrift).
 
+### Disclaimer
+
+The approach presented with **MetaThrift** is for the desperate individuals out there that cannot make a direct switch to the web (e.g. REST). It may alleviate an incremental change process or at least help to start it. 
+
+One step ahead would be to make the switch to REST in your desktop applications before finally switching to web applications. 
+
+An example for web enabled desktop applications is e.g. [mkoertgen/hello.webapi.wpf](https://github.com/mkoertgen/hello.webapi.wpf).
+
 ## Supported Features
 
 - Actions (no return) and Functions with generic argument and return types including `void` parameters (no parameter)
@@ -56,6 +64,10 @@ The `MetaBroker` service is implemented in .NET and Java.
 ## MetaBrowser 
 
 The `MetaBrowser` is a generic client application for the `MetaBroker` that allows browsing the registered services and executing their operations. The `MetaBrowser` application is implemented in .NET (WPF) and TypeScript ([Knockout](http://knockoutjs.com/)).
+
+Below you find some screenshots of the `MetaBrowser` application browsing and executing the operations from the test `MetaServer` which registered itself to the `MetaBroker`.
+
+**Note:** The test `MetaServer` supports only **TCP** whereas the `MetaBroker` can expose the service operations also over **HTTP** (including [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)) which makes it possible that **a web application can talk to a local application!**
 
 ### Screenshots of the .MetaBrowser .NET/WPF application
 
