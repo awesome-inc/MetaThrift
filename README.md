@@ -15,6 +15,8 @@ The same example in **.NET**:
 	MetaService.Iface service = ...
 	var result = service.Call<int, int>("fibonacci", 5);
 
+The implementation is based on [Apache Thrift](https://thrift.apache.org/). Here is the idl [MetaThrift.thrift](MetaThrift.thrift).
+
 ## Supported Features
 
 - Actions (no return) and Functions with generic argument and return types including `void` parameters (no parameter)
