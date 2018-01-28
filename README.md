@@ -1,23 +1,32 @@
 # MetaThrift
 
+**NOTE:** This repository server educational purposes! For a serious application of the concepts discussed below you should consider  
+production-ready platforms such as e.g. [deepstreamHub](https://deepstreamhub.com/open-source/?io)
+
+## Motivation
+
 Development is slowed down when changing contract [IDLs](https://thrift.apache.org/docs/idl) is discouraged, e.g. because the code generation maybe a fragile, non-automated process. An intermediate solution is to decouple the contract interfaces (API) from the transport protocol so changing the API becomes independent from changing the IDL. We did just that by introducing a meta IDL that supports a generic call pattern. The basic idea is that 
 
-1. operations are called by name and
+1. operations are called by *name* and
 2. arguments and results are transparently serialized in a generic fashion.
 
 How does that look like? Here is a client example in **Java** which calls the `fibonacci`-operation with the argument `5`
 
-	MetaService.Client service = ...
-	Integer result = call(service, "fibonacci", 5, Integer.class, Integer.class);
+```java
+MetaService.Client service = ...
+Integer result = call(service, "fibonacci", 5, Integer.class, Integer.class);
+```
 
 The same example in **.NET**:
 
-	MetaService.Iface service = ...
-	var result = service.Call<int, int>("fibonacci", 5);
+```csharp
+MetaService.Iface service = ...
+var result = service.Call<int, int>("fibonacci", 5);
+```
 
 The implementation is based on [Apache Thrift](https://thrift.apache.org/). Here is the idl [MetaThrift.thrift](MetaThrift.thrift).
 
-### Disclaimer
+## Disclaimer
 
 The approach presented with **MetaThrift** is for the desperate individuals out there that cannot make a direct switch to the web (e.g. REST). It may alleviate an incremental change process or at least help to start it. 
 
@@ -46,18 +55,20 @@ It also mediates between multiple protocols, e.g. **TCP** (default port 9090) an
 
 Here is a client example in **TypeScript** taken from the `MetaBrowser` application:
 
-	this.brokerUri = ko.observable("http://localhost:9091/services/metabroker/");
-    this.broker = new MetaBrokerClient(MetaThrift.createProtocol(this.brokerUri()));
+```typescript
+this.brokerUri = ko.observable("http://localhost:9091/services/metabroker/");
+this.broker = new MetaBrokerClient(MetaThrift.createProtocol(this.brokerUri()));
 
-    var operation : MetaOperation = this.selectedOperation().operation;
+var operation : MetaOperation = this.selectedOperation().operation;
 
-	var input = new MetaObject();
-	input.typeName = operation.inputTypeName;
-	input.data = this.inputData();
+var input = new MetaObject();
+input.typeName = operation.inputTypeName;
+input.data = this.inputData();
 
-	var output = this.broker.call(operation, input);
+var output = this.broker.call(operation, input);
 
-	this.outputData(output.data);
+this.outputData(output.data);
+```
 
 The `MetaBroker` service is implemented in .NET and Java.
 
@@ -73,7 +84,7 @@ Below you find some screenshots of the `MetaBrowser` application browsing and ex
 
 ![MetaBrowser .NET/WPF application](img/MetaBrowser_net.png)
 
-### Screenshots of the .MetaBrowser Web app (TypeScript)
+### Screenshots of the .MetaBrowser Web app (TypeScript, Knockout.js)
 
 ![MetaBrowser Web app (TypeScript)](img/MetaBrowser_ts.png)
 
@@ -83,39 +94,51 @@ To implement a server subclass the `AbstractMetaService` or use the `DynamicMeta
 
 ### .NET
 
-    var service = new DynamicMetaService("MyName", "MyDisplayName", "MyDescription");
+```csharp
+var service = new DynamicMetaService("MyName", "MyDisplayName", "MyDescription");
 
-    service.RegisterAction<string>("openBrowser", uri => Process.Start(uri), "Open Browser", "Opens a web browser with the specified uri");
+ service.RegisterAction<string>("openBrowser", 
+   uri => Process.Start(uri), 
+   "Open Browser", 
+   "Opens a web browser with the specified uri");
 
-	service.RegisterAction("searchDoodles", () => Process.Start("http://www.google.com/doodles/"), "Search Doodles", "Opens the Google Doodle page");
+service.RegisterAction("searchDoodles", 
+   () => Process.Start("http://www.google.com/doodles/"), 
+   "Search Doodles", 
+   "Opens the Google Doodle page");
 
-    service.RegisterFunc<Tuple<int, int>, int>("add", t => t.Item1+t.Item2, "Add", "Adds two integers");
+service.RegisterFunc<Tuple<int, int>, int>("add", 
+  t => t.Item1+t.Item2, 
+  "Add", 
+  "Adds two integers");
+```
 
 ### Java
 
-    final DynamicMetaService service = new DynamicMetaService("MyName",
-		"MyDisplayName", "MyDescription");
+```java
+final DynamicMetaService service = new DynamicMetaService("MyName", "MyDisplayName", "MyDescription");
 
-	service.registerAction("openBrowser", String.class,
-		new Action<String>() {
-			public void call(String input) throws IOException { 
-				launchApp(input); 
-			}
-		},
-		"Open Browser", "Opens a web browser with the specified url");
+service.registerAction("openBrowser", String.class,
+    new Action<String>() {
+        public void call(String input) throws IOException { 
+	    launchApp(input); 
+        }
+    },
+    "Open Browser", "Opens a web browser with the specified url");
 
-	service.registerAction("searchDoodles", 
-		new VoidAction() {
-			public void call() throws Exception { 
-				launchApp("http://www.google.com/doodles/"); 
-			}
-		}, 
-		"Search Doodles", "Opens the Google Doodle page");
+service.registerAction("searchDoodles", 
+    new VoidAction() {
+        public void call() throws Exception { 
+            launchApp("http://www.google.com/doodles/"); 
+        }
+    }, 
+    "Search Doodles", "Opens the Google Doodle page");
 
-	service.registerFunc("fibonacci", Integer.class, Integer.class,
-		new Function<Integer, Integer>() {
-			public Integer call(Integer input) throws Exception { 
-				return 	fibonacci(input); 
-			}
-		}, 
-		"Fibonacci", "Computes the Fibonacci series for the specified number");
+service.registerFunc("fibonacci", Integer.class, Integer.class,
+    new Function<Integer, Integer>() {
+        public Integer call(Integer input) throws Exception { 
+            return fibonacci(input); 
+        }
+    }, 
+    "Fibonacci", "Computes the Fibonacci series for the specified number");
+```
