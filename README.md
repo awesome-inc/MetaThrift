@@ -1,6 +1,6 @@
 # MetaThrift
 
-**NOTE:** This repository server educational purposes! For a serious application of the concepts discussed below you should consider production-ready platforms such as e.g. [deepstreamHub](https://deepstreamhub.com/open-source/?io).
+**NOTE:** This repository serves educational purposes only! For a serious application of the concepts discussed below you should consider production-ready platforms such as e.g. [deepstreamHub](https://deepstreamhub.com/open-source/?io).
 
 ## Motivation
 
