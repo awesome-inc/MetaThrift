@@ -45,7 +45,7 @@ namespace MetaThrift.Tests
             var sut = new RetryOnce<InvalidOperationException>(() => service);
 
             sut.Invoking(x => x.call(operation, input))
-                .ShouldThrow<System.ArgumentException>()
+                .Should().Throw<System.ArgumentException>()
                 .WithMessage("raised by test");
         }
     }

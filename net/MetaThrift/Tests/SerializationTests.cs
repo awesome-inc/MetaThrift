@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -515,8 +515,8 @@ namespace MetaThrift.Tests
 
         private static void TestType(Type type, string typeName)
         {
-            type.ShouldBeEquivalentTo(typeName.ToType());
-            typeName.ShouldBeEquivalentTo(type.ToTypeName());
+            type.Should().Be(typeName.ToType());
+            typeName.Should().BeEquivalentTo(type.ToTypeName());
         }
 
         private static void TestType<T>(string typeName)
@@ -529,17 +529,17 @@ namespace MetaThrift.Tests
             var metaObject = expected.ToMetaObject();
             Trace.WriteLine(metaObject.PrettyPrint());
             var actual = metaObject.FromMetaObject<T>();
-            expected.ShouldBeEquivalentTo(actual);
+            expected.Should().BeEquivalentTo(actual);
         }
 
-        // FluentAssertions.ShouldBeEquivalentTo(), 2.0 cannot handle Tuples of collections!
+        // FluentAssertions.Should().BeEquivalentTo(), 2.0 cannot handle Tuples of collections!
         private static void TestTupleOfCollections<T1,TCollection>(Tuple<T1,TCollection> expected)
         {
             var metaObject = expected.ToMetaObject();
             Trace.WriteLine(metaObject.PrettyPrint());
             var actual = metaObject.FromMetaObject<Tuple<T1,TCollection>>();
-            expected.Item1.ShouldBeEquivalentTo(actual.Item1);
-            expected.Item2.ShouldBeEquivalentTo(actual.Item2);
+            expected.Item1.Should().BeEquivalentTo(actual.Item1);
+            expected.Item2.Should().BeEquivalentTo(actual.Item2);
         }
 
         class InnerClass : IEquatable<InnerClass>
@@ -605,4 +605,3 @@ namespace MetaThrift.Tests
 
     }
 }
- 

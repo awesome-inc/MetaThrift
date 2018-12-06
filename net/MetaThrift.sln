@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaThrift", "MetaThrift\MetaThrift.csproj", "{732320C2-27AC-4FEC-B000-6FFF811565B0}"
 EndProject
@@ -13,30 +13,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestServer", "Tests\TestSer
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{137BA427-06F6-4D1B-97D5-FB7EEA19F61C}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		before.MetaThrift.sln.targets = before.MetaThrift.sln.targets
+		build.bat = build.bat
+		empty.targets = empty.targets
+		GitVersion.yml = GitVersion.yml
 		..\MetaThrift.thrift = ..\MetaThrift.thrift
 		solution.targets = solution.targets
 		SolutionInfo.cs = SolutionInfo.cs
 		sonar-project.properties = sonar-project.properties
 		thriftGen.bat = thriftGen.bat
-		VersionInfo.g.cs = VersionInfo.g.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaBroker", "MetaBroker\MetaBroker.csproj", "{E2A31242-61E9-47DF-BF9E-48FF05138C9A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetaBrowser", "MetaBrowser\MetaBrowser.csproj", "{2939C295-940D-4240-A148-286763D5BCF7}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2A3F47FE-EE3E-4487-9998-CF8FDB1BE868}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".build", ".build", "{66A8E308-BA53-4E66-AE05-62FD090B2795}"
-	ProjectSection(SolutionItems) = preProject
-		build.bat = build.bat
-		.build\build.targets = .build\build.targets
-		.build\MSBuild.Community.Tasks.dll = .build\MSBuild.Community.Tasks.dll
-		.build\MSBuild.Community.Tasks.targets = .build\MSBuild.Community.Tasks.targets
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thrift.Extensions", "Thrift.Extensions\Thrift.Extensions.csproj", "{2BE65708-E8BF-4CC4-A101-C512705879F8}"
 EndProject
@@ -145,5 +138,8 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{8FAE6CBE-552E-4F56-8199-282CAB2E420D} = {FF2ED91D-A6C4-4138-B50F-CE3040CCB880}
 		{BDB737AF-7CB4-4A20-B7E4-0238A95E7F10} = {FF2ED91D-A6C4-4138-B50F-CE3040CCB880}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F2954FCE-7EA0-4ADB-BCBA-037F94B381F7}
 	EndGlobalSection
 EndGlobal

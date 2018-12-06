@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Linq;
 using FluentAssertions;
@@ -52,7 +52,7 @@ namespace MetaThrift.Tests
                 Trace.WriteLine(operation.PrettyPrint());
 
             var service = (MetaService.Iface)Service;
-            service.getOperations().ShouldBeEquivalentTo(Service.Operations);
+            service.getOperations().Should().BeEquivalentTo(Service.Operations);
         }
 
         [Test]
@@ -159,15 +159,15 @@ namespace MetaThrift.Tests
         public void Calling_unknown_signature_should_throw()
         {
             Service.Invoking(x => x.Call("dummy")).
-                ShouldThrow<ArgumentException>("unknown void action").
+                Should().Throw<ArgumentException>("unknown void action").
                 And.Reason.Should().StartWith("The specified operation is not served by this instance:");
 
             Service.Invoking(x => x.Call<int>("sayHello")).
-                ShouldThrow<ArgumentException>("action with unknown signature called").
+                Should().Throw<ArgumentException>("action with unknown signature called").
                 And.Reason.Should().StartWith("The specified operation is not served by this instance:");
 
             Service.Invoking(x => x.Call<string, int>("sayHello", "input")).
-                ShouldThrow<ArgumentException>("function with unknown signature called").
+                Should().Throw<ArgumentException>("function with unknown signature called").
                 And.Reason.Should().StartWith("The specified operation is not served by this instance:");
         }
 
@@ -177,19 +177,19 @@ namespace MetaThrift.Tests
             var sut = Service as MetaService.Iface;
 
             sut.Invoking(x => x.call("openBrowser".ToMetaAction<string>(), 1.ToMetaObject())).
-                ShouldThrow<ArgumentException>("method with invalid input (expected string instead of it)").
+                Should().Throw<ArgumentException>("method with invalid input (expected string instead of it)").
                 And.Reason.Should().StartWith("The operation input type mismatches the type of the specified input");
 
             var sayHello = "sayHello".ToMetaFunction<string, string>();
             sut.Invoking(x => x.call(sayHello, 1.ToMetaObject())).
-                ShouldThrow<ArgumentException>("function with invalid input (expected string instead of it)").
+                Should().Throw<ArgumentException>("function with invalid input (expected string instead of it)").
                 And.Reason.Should().StartWith("The operation input type mismatches the type of the specified input");
 
             var fibonacci = "fibonacci".ToMetaFunction<int, int>();
             var input = 1.ToMetaObject();
             input.Data = null;
             sut.Invoking(x => x.call(fibonacci, input)).
-                ShouldThrow<ArgumentException>("function with invalid input (should be a valid int but was null which is not allowed for int)").
+                Should().Throw<ArgumentException>("function with invalid input (should be a valid int but was null which is not allowed for int)").
                 And.Reason.Should().StartWith("The specified input value could not be deserialized as the specified type");
         }
 
@@ -200,7 +200,7 @@ namespace MetaThrift.Tests
             try
             {
                 Service.Invoking(x => x.Call("throw")).
-                    ShouldThrow<ServiceException>().
+                    Should().Throw<ServiceException>().
                     And.Reason.Should().StartWith("The operation failed:");
             }
             finally 
@@ -219,7 +219,7 @@ namespace MetaThrift.Tests
 
             var iface = (MetaService.Iface) service;
             iface.Invoking(x => x.call(intFunc, MetaObject.Empty)).
-                ShouldThrow<ArgumentException>().
+                Should().Throw<ArgumentException>().
                 And.Reason.Should().StartWith("The specified output value could not be serialized to the specified type:");
         }
     }

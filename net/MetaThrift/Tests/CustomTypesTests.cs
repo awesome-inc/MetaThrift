@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using FluentAssertions;
 using NUnit.Framework;
 
@@ -11,25 +11,25 @@ namespace MetaThrift.Tests
         [Test]
         public void Assert_RegisterType()
         {
-            const string someTypeName = "de.schoenhofer.someType";
+            const string someTypeName = "de.awesomeinc.someType";
             Register.Type<SomeType>(someTypeName);
 
-            0.Invoking(x => Register.Type<SomeType>(someTypeName)).ShouldThrow<System.ArgumentException>();
-            1.Invoking(x => Register.Type<int>(someTypeName)).ShouldThrow<System.ArgumentException>();
+            0.Invoking(x => Register.Type<SomeType>(someTypeName)).Should().Throw<System.ArgumentException>();
+            1.Invoking(x => Register.Type<int>(someTypeName)).Should().Throw<System.ArgumentException>();
 
             var expected = new SomeType { Uri = "http://www.heise.de" };
             var mo = expected.ToMetaObject();
             mo.TypeName.Should().BeEquivalentTo(someTypeName);
 
             var actual = mo.FromMetaObject<SomeType>();
-            actual.ShouldBeEquivalentTo(expected);
+            actual.Should().BeEquivalentTo(expected);
 
             Unregister.Type<SomeType>();
 
             mo = expected.ToMetaObject();
-            mo.TypeName.ShouldBeEquivalentTo(typeof(SomeType).FullName);
+            mo.TypeName.Should().BeEquivalentTo(typeof(SomeType).FullName);
 
-            2.Invoking(x => Unregister.Type<SomeType>()).ShouldThrow<System.ArgumentException>();
+            2.Invoking(x => Unregister.Type<SomeType>()).Should().Throw<System.ArgumentException>();
         }
 
         private class SomeType : IEquatable<SomeType>
