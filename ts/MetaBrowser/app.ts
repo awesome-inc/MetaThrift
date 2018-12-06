@@ -1,5 +1,5 @@
 /// <reference path="Scripts/typings/knockout/knockout.d.ts" />
-/// <reference path="Scripts/ViewModels.ts" />
+/// <reference path="Scripts/ServicesViewModel.ts" />
 
 //declare var require;
 

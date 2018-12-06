@@ -1,35 +1,44 @@
+"use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
+exports.__esModule = true;
 /// <reference path="tsUnit/tsUnit.ts" />
-/// <reference path="MetaThrift.ts" />
-/// <reference path="ViewModels.ts" />
-var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
+/// <reference path="ServicesViewModel.ts" />
+var tsUnit = require("./tsUnit/tsUnit");
 window.onload = function () {
     var test = new tsUnit.Test();
     Tests.Composer.compose(test);
-    test.showResults(document.getElementById('result'), test.run());
+    test.run().showResults(document.getElementById("result"));
 };
 var Tests;
 (function (Tests) {
-    var Composer = (function () {
+    var Composer = /** @class */ (function () {
         function Composer() {
         }
         Composer.compose = function (test) {
             // Using a composer means we don't need to export the test classes
             // and it means changes are isolated to this file
-            test.addTestClass(new MetaThriftTests(), 'MetaThriftTests');
-            test.addTestClass(new ViewModelTests(), 'ViewModelTests');
+            test.addTestClass(new MetaThriftTests(), "MetaThriftTests");
+            test.addTestClass(new ViewModelTests(), "ViewModelTests");
         };
         return Composer;
-    })();
+    }());
     Tests.Composer = Composer;
-    var MetaThriftTests = (function (_super) {
+    var MetaThriftTests = /** @class */ (function (_super) {
         __extends(MetaThriftTests, _super);
         function MetaThriftTests() {
-            _super.apply(this, arguments);
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         // ReSharper disable InconsistentNaming
         MetaThriftTests.prototype.isNullOrEmpty_Null_should_be_true = function () {
@@ -80,12 +89,12 @@ var Tests;
             this.areIdentical("void sayHello();", pretty);
         };
         return MetaThriftTests;
-    })(tsUnit.TestClass);
+    }(tsUnit.TestClass));
     Tests.MetaThriftTests = MetaThriftTests;
-    var ViewModelTests = (function (_super) {
+    var ViewModelTests = /** @class */ (function (_super) {
         __extends(ViewModelTests, _super);
         function ViewModelTests() {
-            _super.apply(this, arguments);
+            return _super !== null && _super.apply(this, arguments) || this;
         }
         ViewModelTests.prototype.shouldFilterServices = function () {
             var info1 = new MetaServiceInfo();
@@ -118,7 +127,7 @@ var Tests;
             this.areIdentical("inc", services[1].operations[1].name);
         };
         return ViewModelTests;
-    })(tsUnit.TestClass);
+    }(tsUnit.TestClass));
     Tests.ViewModelTests = ViewModelTests;
 })(Tests || (Tests = {}));
 //# sourceMappingURL=tests.js.map

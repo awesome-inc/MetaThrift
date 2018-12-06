@@ -1,5 +1,4 @@
 /// <reference path="typings/knockout/knockout.d.ts" />
-/// <reference path="MetaThrift.d.ts" />
 /// <reference path="MetaThrift.ts" />
 
 //declare var require;
@@ -8,51 +7,20 @@
 //declare var define;
 //define(function () { return new ServicesViewModel(); });
 
-class UiHelper {
-	public static handledCall(action: () => void, couldNot: string) {
-		try  {
-			action(); 
-		}
-		catch(ex)  {
-			alert(couldNot + ": " + ex.name + " " + ex.message);
-		}
-	}
-}
-
-class OperationViewModel {
-	public name: string;
-	public prettyName: string;
-	constructor(public operation: MetaOperation) {
-		var op = MetaThrift.unwrap(operation);
-		this.name = op.name;
-		this.prettyName = MetaThrift.prettyPrint(op);
-	}
-}
-	
-class ServiceViewModel {
-	public name: string;
-	public operations: OperationViewModel[];
-	constructor(public serviceInfo: MetaServiceInfo, operations: MetaOperation[]) {
-		this.name = (this.serviceInfo ? this.serviceInfo.name : "");
-		this.operations = operations.map(o => new OperationViewModel(o));
-	}
-	static empty = new ServiceViewModel(null, []);
-}
-
 class ServicesViewModel {
-	private broker: MetaBrokerClient;
+	private readonly broker: MetaBrokerClient;
 	
-	public brokerUri: KnockoutObservable<string>;
-	public validUri: KnockoutComputed<boolean>;
+	brokerUri: KnockoutObservable<string>;
+	validUri: KnockoutComputed<boolean>;
 
-	public services: KnockoutObservableArray<ServiceViewModel>;
-	public selectedService: KnockoutObservable<ServiceViewModel>;
+	services: KnockoutObservableArray<ServiceViewModel>;
+	selectedService: KnockoutObservable<ServiceViewModel>;
 	
-	public selectedOperation: KnockoutObservable<OperationViewModel>;
-	public operationSelected: KnockoutComputed<boolean>;
+	selectedOperation: KnockoutObservable<OperationViewModel>;
+	operationSelected: KnockoutComputed<boolean>;
 
-	public inputData: KnockoutObservable<string>;
-	public outputData: KnockoutObservable<string>;
+	inputData: KnockoutObservable<string>;
+	outputData: KnockoutObservable<string>;
 
 	constructor() {
 		this.brokerUri = ko.observable("http://localhost:9091/services/metabroker/");
@@ -83,7 +51,7 @@ class ServicesViewModel {
 			this.broker.output.getTransport().url = this.brokerUri();
 
 			var operations = this.broker.getOperations();
-			if (operations.length == 0) {
+			if (operations.length === 0) {
 				alert("No MetaServices registered.");
 				return;
 			}
@@ -101,7 +69,7 @@ class ServicesViewModel {
 	}
 
 	executeOperation() {
-		var operation : MetaOperation = this.selectedOperation().operation;
+		var operation = this.selectedOperation().operation;
 		UiHelper.handledCall(() => {
 			var input = new MetaObject();
 			input.typeName = operation.inputTypeName;
@@ -111,12 +79,12 @@ class ServicesViewModel {
 		}, "Could not execute operation");
 	}
 
-	public static filterServices(infos: MetaServiceInfo[], operations: MetaOperation[]): ServiceViewModel[] {
-		var services = infos.map(info => {
-			var ops = operations.
-				filter(o => o.name.indexOf(info.name + "/") == 0);
-			return new ServiceViewModel(info, ops);
-		});
-		return services;
-	}
+	static filterServices(infos: MetaServiceInfo[], operations: MetaOperation[]): ServiceViewModel[] {
+	    const services = infos.map(info => {
+	        var ops = operations.
+	            filter(o => o.name.indexOf(info.name + "/") === 0);
+	        return new ServiceViewModel(info, ops);
+	    });
+	    return services;
+    }
 }

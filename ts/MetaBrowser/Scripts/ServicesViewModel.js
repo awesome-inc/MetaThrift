@@ -4,14 +4,6 @@
 //require(['MetaThrift.min'], function () { });
 //declare var define;
 //define(function () { return new ServicesViewModel(); });
-class ServiceViewModel {
-    constructor(serviceInfo, operations) {
-        this.serviceInfo = serviceInfo;
-        this.name = (this.serviceInfo ? this.serviceInfo.name : "");
-        this.operations = operations.map(o => new OperationViewModel(o));
-    }
-}
-ServiceViewModel.empty = new ServiceViewModel(null, []);
 class ServicesViewModel {
     constructor() {
         this.brokerUri = ko.observable("http://localhost:9091/services/metabroker/");
@@ -36,7 +28,7 @@ class ServicesViewModel {
             this.broker.input.getTransport().url = this.brokerUri();
             this.broker.output.getTransport().url = this.brokerUri();
             var operations = this.broker.getOperations();
-            if (operations.length == 0) {
+            if (operations.length === 0) {
                 alert("No MetaServices registered.");
                 return;
             }
@@ -62,10 +54,10 @@ class ServicesViewModel {
     static filterServices(infos, operations) {
         const services = infos.map(info => {
             var ops = operations.
-                filter(o => o.name.indexOf(info.name + "/") == 0);
+                filter(o => o.name.indexOf(info.name + "/") === 0);
             return new ServiceViewModel(info, ops);
         });
         return services;
     }
 }
-//# sourceMappingURL=ViewModels.js.map
+//# sourceMappingURL=ServicesViewModel.js.map

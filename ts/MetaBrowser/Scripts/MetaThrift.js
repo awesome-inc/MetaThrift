@@ -6,16 +6,20 @@ var MetaThrift;
     function unwrap(operation) {
         var unwrapped = new MetaOperation(operation);
         var value = operation.name;
-        unwrapped.name = value.substring(value.indexOf('/') + 1);
+        unwrapped.name = value.substring(value.indexOf("/") + 1);
         return unwrapped;
     }
     MetaThrift.unwrap = unwrap;
     function prettyPrint(operation) {
-        return (!isNullOrEmpty(operation.outputTypeName) ? operation.outputTypeName : "void") + " " + operation.name + "(" + (!isNullOrEmpty(operation.inputTypeName) ? operation.inputTypeName + " value" : "") + ");" + (!isNullOrEmpty(operation.description) ? " // " + operation.description : "");
+        return (!isNullOrEmpty(operation.outputTypeName) ? operation.outputTypeName : "void")
+            + " " + operation.name + "("
+            + (!isNullOrEmpty(operation.inputTypeName) ? operation.inputTypeName + " value" : "")
+            + ");"
+            + (!isNullOrEmpty(operation.description) ? " // " + operation.description : "");
     }
     MetaThrift.prettyPrint = prettyPrint;
     function isNullOrEmpty(value) {
-        return (value && value != "") ? false : true;
+        return !(value && value !== "");
     }
     MetaThrift.isNullOrEmpty = isNullOrEmpty;
     function createProtocol(url) {
