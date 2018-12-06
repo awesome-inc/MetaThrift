@@ -17,3 +17,5 @@ felix-cache/
 *.launch
 *.prefs
 .metadata/
+
+*.iml
