@@ -1,5 +1,7 @@
 # MetaThrift
 
+[![SonarCloud](https://sonarcloud.io/api/project_badges/measure?project=inc.awesome.metathrift%3Ametathrift&metric=alert_status)](https://sonarcloud.io/dashboard?id=inc.awesome.metathrift:metathrift)
+
 **NOTE:** This repository serves educational purposes only! For a serious application of the concepts discussed below you should consider production-ready platforms such as e.g. [deepstreamHub](https://deepstreamhub.com/open-source/?io).
 
 ## Motivation
@@ -71,7 +73,7 @@ this.outputData(output.data);
 
 The `MetaBroker` service is implemented in .NET and Java.
 
-## MetaBrowser 
+## MetaBrowser
 
 The `MetaBrowser` is a generic client application for the `MetaBroker` that allows browsing the registered services and executing their operations. The `MetaBrowser` application is implemented in .NET (WPF) and TypeScript ([Knockout](http://knockoutjs.com/)).
 
@@ -127,7 +129,7 @@ service.registerAction("openBrowser", String.class,
 
 service.registerAction("searchDoodles",
     new VoidAction() {
-        public void call() throws Exception { 
+        public void call() throws Exception {
             launchApp("http://www.google.com/doodles/");
         }
     },
